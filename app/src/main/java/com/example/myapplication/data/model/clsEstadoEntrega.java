@@ -1,7 +1,6 @@
 package com.example.myapplication.data.model;
 
-public class clsIncidencia {
-    private int id;
+public class clsEstadoEntrega {
 
     public int getId() {
         return id;
@@ -19,6 +18,8 @@ public class clsIncidencia {
         this.nombre = nombre;
     }
 
+    private int id;
     private String nombre;
+
 
 }

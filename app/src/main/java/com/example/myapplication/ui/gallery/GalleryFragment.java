@@ -47,7 +47,6 @@ public class GalleryFragment extends Fragment {
     private GalleryViewModel galleryViewModel;
     public String mostrarTipoArchivo="";
     ImageView id_img;
-    Integer proyecto_id=null;
     // Storage Permissions variables
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -84,9 +83,7 @@ public class GalleryFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         galleryViewModel = ViewModelProviders.of(this).get(GalleryViewModel.class);
         //verifyStoragePermissions(getActivity());
-        Bundle args = getArguments();
-        proyecto_id = args.getInt("proyecto_id", 0);
-    Log.d("proyecto_id",proyecto_id+"awd");
+
         listViewArchivos = (ListView) getActivity().findViewById(R.id.listViewArchivos);
         this.recuperarListarArchivos();
         registerForContextMenu(listViewArchivos);
@@ -151,18 +148,12 @@ public class GalleryFragment extends Fragment {
     }
     private void recuperarListarArchivos() {
         try{
-            String root = conf.getRutaArchivos()+proyecto_id+"/";
+            String root = conf.getRutaArchivos();
             String carpeta="";
             Log.d("RUTAARCHIVOS ROOT",root);
             switch (mostrarTipoArchivo){
                 case "mostrarFotos":
                     carpeta = root+"Fotos/" ;
-                    break;
-                case "mostrarVideos":
-                    carpeta = root + "Videos/";
-                    break;
-                case "mostrarAudios":
-                    carpeta = root + "Audios/";
                     break;
             }
             File myDir = new File(carpeta);

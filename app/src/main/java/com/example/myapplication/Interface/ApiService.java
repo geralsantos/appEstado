@@ -1,57 +1,51 @@
 package com.example.myapplication.Interface;
 
 import com.example.myapplication.data.model.LoggedInUser;
-import com.example.myapplication.data.model.clsIncidencia;
-import com.example.myapplication.data.model.clsProyecto;
-import com.example.myapplication.data.model.clsSolid;
-import com.example.myapplication.data.model.clsTarea;
+import com.example.myapplication.data.model.clsCentros;
+import com.example.myapplication.data.model.clsTipoCaptura;
+import com.example.myapplication.data.model.clsCompFamiliar;
+import com.example.myapplication.data.model.clsEstadoEntrega;
 import com.example.myapplication.data.model.clsTareoActividad;
 import com.example.myapplication.data.model.clsTrabajador;
-import com.example.myapplication.data.model.clsEstadoProyecto;
-import com.example.myapplication.data.model.clsSupervision;
+import com.example.myapplication.data.model.clsTipoDocumento;
+import com.example.myapplication.data.model.clsDonaciones;
 import com.example.myapplication.data.model.clsActividad;
 import com.example.myapplication.data.model.clsMontCronograma;
-import com.example.myapplication.data.model.clsSuperVisionAdjuntos;
 
 
 import java.util.List;
 
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface ApiService {
     //declarar las rutas del api
     @GET("montaje/proyectos/ver/")
-    Call<List<clsProyecto>> getProyectos();
+    Call<List<clsTipoCaptura>> getProyectos();
 
     @GET("produccion/solid/ver/{proyecto_id}")
-    Call<List<clsSolid>> getSolids(
+    Call<List<clsCompFamiliar>> getSolids(
             @Path("proyecto_id") Integer proyecto_id
     );
 
     @GET("montaje/estados/ver/")
-    Call<List<clsEstadoProyecto>> getEstadosProyecto();
+    Call<List<clsTipoDocumento>> getEstadosProyecto();
 
     @GET("montaje/incidencias/ver/")
-    Call<List<clsIncidencia>> getIncidenciasProyecto();
+    Call<List<clsCentros>> getIncidenciasProyecto();
 
     @GET("produccion/proyectos/ver/")
-    Call<List<clsProyecto>> getProyectosProduccion();
+    Call<List<clsTipoCaptura>> getProyectosProduccion();
 
     @GET("produccion/tareas/ver/")
-    Call<List<clsTarea>> getTareasProyecto();
+    Call<List<clsEstadoEntrega>> getTareasProyecto();
 
     @GET("produccion/trabajadores/ver/")
     Call<List<clsTrabajador>> getTrabajadores();
@@ -71,9 +65,7 @@ public interface ApiService {
 
     @Multipart
     @POST("montaje/supervision/guardar/")
-    //@FormUrlEncoded
-    //Call<ResponseBody> guardarSupervision(@Body RequestBody file);
-    Call<clsSupervision> guardarSupervision(
+    Call<clsDonaciones> guardarSupervision(
             @Part("proyecto_id") Integer proyecto_id,
             @Part("geolocalizacion_estado_id") Integer geolocalizacion_estado_id,
             @Part("descripcion") String descripcion,
@@ -112,22 +104,46 @@ public interface ApiService {
             @Field("horas_trabajadas") String horas_trabajadas,
             @Field("usuario_id") Integer usuario_id
     );
-    /*@Multipart
-    @Headers({"CONNECT_TIMEOUT:10000", "READ_TIMEOUT:10000", "WRITE_TIMEOUT:10000"})
-    @POST("montaje/supervision/guardarAdjuntos/")
-    Call<clsSuperVisionAdjuntos> guardarSupervisionAdjuntos(
-            @Part("supervision_id") Integer supervision_id,
-            @Part("usuario_id") Integer usuario_id,
-            @Part MultipartBody.Part file
+
+    //declarar las rutas del api
+
+    @GET("registros/tipocaptura/ver/{ubigeo_id}")
+    Call<List<clsTipoCaptura>> getTipoCaptura(
+            @Path("ubigeo_id") Integer ubigeo_id
     );
 
-    @POST("montaje/supervision/guardarAdjuntos/")
-    @FormUrlEncoded
-    Call<clsSuperVisionAdjuntos> pruebaAdjuntoVideo(
-            @Field("nombre_adjunto") String nombre_adjunto,
-            @Field("supervision_id") Integer supervision_id,
-            @Field("usuario_id") Integer usuario_id,
-            @Field("videobuffer") String videobuffer
-    );*/
+    @GET("registros/tipodocumento/ver/")
+    Call<List<clsTipoDocumento>> getTipoDocumento();
+/*
+    @GET("montaje/estados/ver/")
+    Call<List<clsCentros>> getCentros();
+
+    @GET("montaje/estados/ver/")
+    Call<List<clsCompFamiliar>> getComposicionFamiliar();*/
+
+    @GET("registros/estadoentrega/ver/")
+    Call<List<clsEstadoEntrega>> getEstadoEntrega();
+
+    @Multipart
+    @POST("montaje/supervision/guardar/")
+    Call<clsDonaciones> guardarDonacion(
+            @Part("tipo_captura_id") Integer tipo_captura_id,
+            @Part("tipo_documento_id") Integer tipo_documento_id,
+            @Part("numero_documento") Integer numero_documento,
+            @Part("apellido_paterno") String apellido_paterno,
+            @Part("apellido_materno") String apellido_materno,
+            @Part("nombres") String nombres,
+            @Part("direccion") String direccion,
+            @Part("centro") String centro,
+            @Part("composicion") Integer composicion_familiar_id,
+            @Part("observacion") String observacion,
+            @Part("estado_entrega_id") Integer estado_entrega_id,
+            @Part("latitud") String latitud,
+            @Part("logitud") String logitud,
+            @Part("usuario_id") Integer usuario_id,
+            @Part List<MultipartBody.Part> file
+
+    );
+
 
 }

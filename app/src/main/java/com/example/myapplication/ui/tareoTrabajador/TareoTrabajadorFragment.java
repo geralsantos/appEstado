@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -32,7 +31,6 @@ import com.example.myapplication.Interface.ApiService;
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 
-import java.io.File;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,9 +38,9 @@ import java.util.Date;
 import java.util.List;
 import com.example.myapplication.data.model.clsActividad;
 import com.example.myapplication.ui.actividades_registradas.ActividadesRegistradasFragment;
-import com.example.myapplication.data.model.clsProyecto;
-import com.example.myapplication.data.model.clsSolid;
-import com.example.myapplication.data.model.clsTarea;
+import com.example.myapplication.data.model.clsTipoCaptura;
+import com.example.myapplication.data.model.clsCompFamiliar;
+import com.example.myapplication.data.model.clsEstadoEntrega;
 import com.example.myapplication.data.model.clsTrabajador;
 
 import retrofit2.Call;
@@ -68,9 +66,9 @@ public class TareoTrabajadorFragment extends Fragment {
     List<clsActividad> rowItems = new ArrayList<clsActividad>();
 
     private ApiService servicio = Config.getRetrofit().create(ApiService.class);
-    clsProyecto item = null;
-    List<clsProyecto> rowProyectos = null;
-    List<clsSolid> rowSolids = null;
+    clsTipoCaptura item = null;
+    List<clsTipoCaptura> rowProyectos = null;
+    List<clsCompFamiliar> rowSolids = null;
     String[] proyectos_array = null;
     String[] solids_array = null;
     Integer[] id_proyectos_array = null;
@@ -78,7 +76,7 @@ public class TareoTrabajadorFragment extends Fragment {
     String[] actividades_array = null;
     Integer[] id_actividades_array = null;
 
-    List<clsTarea> rowTareasProyecto = null;
+    List<clsEstadoEntrega> rowTareasProyecto = null;
     List<clsTrabajador> rowTrabajadores = null;
     String[] personas = null;
     Integer[] personas_id = null;
@@ -397,20 +395,20 @@ public class TareoTrabajadorFragment extends Fragment {
 
     }
     public void listadoActividades(){
-        Call<List<clsTarea>> tareasProyecto = servicio.getTareasProyecto();
-        tareasProyecto.enqueue(new Callback<List<clsTarea>>() {
+        Call<List<clsEstadoEntrega>> tareasProyecto = servicio.getTareasProyecto();
+        tareasProyecto.enqueue(new Callback<List<clsEstadoEntrega>>() {
             @Override
-            public void onResponse(Call<List<clsTarea>> call, Response<List<clsTarea>> response) {
+            public void onResponse(Call<List<clsEstadoEntrega>> call, Response<List<clsEstadoEntrega>> response) {
                 if (response.isSuccessful()){
                     actividades_array = new String[response.body().size()];
                     id_actividades_array = new Integer[response.body().size()];
 
                     List<String> spinnerArray =  new ArrayList<String>();
-                    rowTareasProyecto = new ArrayList<clsTarea>();
+                    rowTareasProyecto = new ArrayList<clsEstadoEntrega>();
                     spinnerArray.add("SELECCIONE ACTIVIDAD");
                     Integer i = 0;
 
-                    for (clsTarea p : response.body()) {
+                    for (clsEstadoEntrega p : response.body()) {
                         spinnerArray.add(p.getNombre());
                         actividades_array[i] = p.getNombre();
                         id_actividades_array[i] = p.getId();
@@ -431,26 +429,26 @@ public class TareoTrabajadorFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<clsTarea>> call, Throwable t) {
+            public void onFailure(Call<List<clsEstadoEntrega>> call, Throwable t) {
 
             }
         });
 
     }
     public void listadoProyectos(){
-        final Call<List<clsProyecto>> proyectos = servicio.getProyectosProduccion();
-        proyectos.enqueue(new Callback<List<clsProyecto>>() {
+        final Call<List<clsTipoCaptura>> proyectos = servicio.getProyectosProduccion();
+        proyectos.enqueue(new Callback<List<clsTipoCaptura>>() {
             @Override
-            public void onResponse(Call<List<clsProyecto>> call, Response<List<clsProyecto>> response) {
+            public void onResponse(Call<List<clsTipoCaptura>> call, Response<List<clsTipoCaptura>> response) {
                 if (response.isSuccessful()){
                     proyectos_array = new String[response.body().size()];
                     id_proyectos_array = new Integer[response.body().size()];
                     spnArrProyectos =  new ArrayList<String>();
-                    rowProyectos = new ArrayList<clsProyecto>();
+                    rowProyectos = new ArrayList<clsTipoCaptura>();
                     spnArrProyectos.add("SELECCIONE PROYECTO");
 
                     Integer i = 0;
-                    for (clsProyecto p : response.body()) {
+                    for (clsTipoCaptura p : response.body()) {
                         spnArrProyectos.add(p.getNombre());
                         proyectos_array[i] = p.getNombre();
                         id_proyectos_array[i] = p.getId();
@@ -464,7 +462,7 @@ public class TareoTrabajadorFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<clsProyecto>> call, Throwable t) {
+            public void onFailure(Call<List<clsTipoCaptura>> call, Throwable t) {
                 Log.d("ERROR PROD PROYECTO",t.getMessage());
             }
         });
@@ -477,19 +475,19 @@ public class TareoTrabajadorFragment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_tareo_trabajador_listado_solid.setAdapter(adapter);
 
-        final Call<List<clsSolid>> solids = servicio.getSolids(proyecto_id);
-        solids.enqueue(new Callback<List<clsSolid>>() {
+        final Call<List<clsCompFamiliar>> solids = servicio.getSolids(proyecto_id);
+        solids.enqueue(new Callback<List<clsCompFamiliar>>() {
             @Override
-            public void onResponse(Call<List<clsSolid>> call, Response<List<clsSolid>> response) {
+            public void onResponse(Call<List<clsCompFamiliar>> call, Response<List<clsCompFamiliar>> response) {
                 if (response.isSuccessful()){
                     solids_array = new String[response.body().size()];
                     id_solids_array = new Integer[response.body().size()];
                     spnArrSolids =  new ArrayList<String>();
-                    rowSolids = new ArrayList<clsSolid>();
+                    rowSolids = new ArrayList<clsCompFamiliar>();
                     spnArrSolids.add("SELECCIONE SOLID");
 
                     Integer i = 0;
-                    for (clsSolid p : response.body()) {
+                    for (clsCompFamiliar p : response.body()) {
                         spnArrSolids.add(p.getNombre());
                         solids_array[i] = p.getNombre();
                         id_solids_array[i] = p.getId();
@@ -507,7 +505,7 @@ public class TareoTrabajadorFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<clsSolid>> call, Throwable t) {
+            public void onFailure(Call<List<clsCompFamiliar>> call, Throwable t) {
                 Log.d("ERROR PROD SOLIDS",t.getMessage());
             }
         });

@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_geomap_montaje">
+    app:startDestination="@id/nav_donaciones">
 
     <fragment
-        android:id="@+id/nav_geomap_montaje"
-        android:name="com.example.myapplication.ui.geolocalizacionMontaje.GeolocalizacionMontajeFragment"
-        android:label="@string/menu_geolocalizacion_montaje"
-        tools:layout="@layout/geolocalizacion_montaje_fragment" />
+        android:id="@+id/nav_donaciones"
+        android:name="com.example.myapplication.ui.donaciones.DonacionesFragment"
+        android:label="@string/menu_donaciones"
+        tools:layout="@layout/fragment_donaciones" />
 
     <fragment
         android:id="@+id/nav_audio_recorder"
         android:name="com.example.myapplication.ui.audio_recorder.AudioRecorderFragment"
-        android:label="@string/menu_geolocalizacion_montaje"
+        android:label="@string/menu_donaciones"
         tools:layout="@layout/fragment_audio_recorder" />
 
     <fragment

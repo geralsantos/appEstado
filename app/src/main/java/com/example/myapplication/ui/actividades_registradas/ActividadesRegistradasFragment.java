@@ -12,7 +12,6 @@ import android.widget.ListView;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -22,7 +21,6 @@ import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.data.model.clsActividad;
 import com.example.myapplication.ui.tareoTrabajador.ListadoActividadAdapter;
-import com.example.myapplication.ui.tareo_actividades.ListadoTareoActividadAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

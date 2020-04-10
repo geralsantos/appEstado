@@ -1,6 +1,7 @@
 package com.example.myapplication.data.model;
 
-public class clsTarea {
+public class clsCentros {
+    private int id;
 
     public int getId() {
         return id;
@@ -18,8 +19,6 @@ public class clsTarea {
         this.nombre = nombre;
     }
 
-    private int id;
     private String nombre;
-
 
 }

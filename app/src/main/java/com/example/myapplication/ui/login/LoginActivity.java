@@ -187,6 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("empleado_nombres",response.body().getNombres());
                     editor.putString("empleado_apellidos",response.body().getApellidos());
                     editor.putInt("usuario_id",response.body().getId());
+                    editor.putInt("ubigeo_id",response.body().getUbigeo_id());
                     editor.commit();
 
                     addUser();

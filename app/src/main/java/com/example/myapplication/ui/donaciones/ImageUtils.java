@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.geolocalizacionMontaje;
+package com.example.myapplication.ui.donaciones;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,15 +8,9 @@ import android.graphics.Paint;
 import android.media.ExifInterface;
 import android.util.Log;
 
-import com.example.myapplication.Config.Config;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
-import com.example.myapplication.config;
 public class ImageUtils {
 
     public static ImageUtils mInstant;

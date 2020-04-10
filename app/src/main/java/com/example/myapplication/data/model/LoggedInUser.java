@@ -28,6 +28,16 @@ public class LoggedInUser {
     private String nombres;
     private String apellidos;
 
+    public Integer getUbigeo_id() {
+        return ubigeo_id;
+    }
+
+    public void setUbigeo_id(Integer ubigeo_id) {
+        this.ubigeo_id = ubigeo_id;
+    }
+
+    private Integer ubigeo_id;
+
 
     public LoggedInUser(Integer id, String displayName,String usuario,String password) {
         this.id = id;

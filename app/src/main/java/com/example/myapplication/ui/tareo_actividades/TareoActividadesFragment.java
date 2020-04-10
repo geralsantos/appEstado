@@ -154,22 +154,13 @@ public class TareoActividadesFragment extends Fragment {
     private void modificar(int positionArrayImagen){
         final Integer id = rowItems.get(positionArrayImagen).getId();
         final String hora_inicio = rowItems.get(positionArrayImagen).getHora_inicio();
-
-        CustomDialogClass cdd=new CustomDialogClass(contexto,id,hora_inicio,usuario_id,new TareoActividadesFragment());
-        cdd.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                listViewActividades();
-            }
-        });
-        cdd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        cdd.show();
+ 
 
 
 
         //String nombre_imagen = rowItems.get(positionArrayImagen).getNombre();
 /*
- final View view = getLayoutInflater().inflate(R.layout.tareo_dialog_editar, null);
+ final View view = getLayoutInflater().inflate(R.layout.comp_familiar_dialog, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Modificar la hora fin"+id);
 

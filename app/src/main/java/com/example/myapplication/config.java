@@ -6,7 +6,7 @@ public class config {
     //Environment.getExternalStoragePublicDirectory(
     //            Environment.DIRECTORY_PICTURES).getAbsolutePath();
     //final String rutaArchivos= Environment.getExternalStorageDirectory().toString()+"/appEstadoBenef/";
-    final String rutaArchivos= Environment.getExternalStorageDirectory().toString()+"/appEmerSac/";
+    final String rutaArchivos= Environment.getExternalStorageDirectory().toString()+"/appDonacionesPE/";
 
     public String getRutaArchivos() {
         return rutaArchivos;
